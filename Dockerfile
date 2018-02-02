@@ -9,7 +9,7 @@ RUN mkdir /django_app
 VOLUME /django_app
 
 # COPY startup script into known file location in container
-COPY start.sh /django_app/start.sh
+COPY start.sh /start.sh
 
 
 # CMD specifies the command to execute to start the server running.
