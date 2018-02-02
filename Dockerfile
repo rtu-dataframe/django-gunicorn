@@ -6,7 +6,7 @@ EXPOSE 80
 
 #Install mariadb-dev which is only needed during build, installs mysqlclient
 #and then delete the apk mariadb-dev and leaves only mariadb-client-libs.
-RUN apk add --no-cache --virtual .build-deps mariadb-dev ... \
+RUN apk add --update --no-cache --virtual .build-deps build-base mariadb-dev \
     && pip install mysqlclient \
     && apk add --virtual .runtime-deps mariadb-client-libs \
     && apk del .build-deps
