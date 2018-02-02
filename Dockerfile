@@ -4,9 +4,12 @@ FROM python:3.5-alpine
 #Expose port
 EXPOSE 80
 
-#Adds the mysql-client for usage in python
-RUN apk update && apk add mysql mysql-client && addgroup mysql mysql && rm -rf /var/cache/apk/*
-
+#Install mariadb-dev which is only needed during build, installs mysqlclient
+#and then delete the apk mariadb-dev and leaves only mariadb-client-libs.
+RUN apk add --no-cache --virtual .build-deps mariadb-dev ... \
+    && pip install mysqlclient \
+    && apk add --virtual .runtime-deps mariadb-client-libs \
+    && apk del .build-deps
 #Creating application source directory
 RUN mkdir /django_app
 VOLUME /django_app
