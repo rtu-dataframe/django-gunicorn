@@ -4,6 +4,12 @@ FROM python:3.5-alpine
 #Expose port
 EXPOSE 80
 
+#Adds the mysql-client for usage in python
+RUN apk update && \
+	apk add mysql-client && \
+	addgroup mysql mysql && \
+	rm -rf /var/cache/apk/*
+
 #Creating application source directory
 RUN mkdir /django_app
 VOLUME /django_app
