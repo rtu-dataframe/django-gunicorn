@@ -25,15 +25,17 @@ be executing on container start:
 # How to use this image
 
 ## Basic Setup
+
 Starting a new container with the ready-to-production environment it's really simple, in a nutshell:
 
     FROM simonefardella/django-gunicorn
     ENV DJANGO_APP=helloworld                # will start /django_app/helloworld/wsgi.py bound to port 80
 
 ## DJANGO REQUIREMENTS
+
 This image, becomes with a built-in battery system that manages the pip requirements installation, in fact
-if you want to install some python packages, you have to deploy the requirements.txt file in the same folder of your app,
-the `/start.sh` will look for requirements.txt file, and install all requirements.
+if you want to install some python packages, you have to deploy the requirements.txt file in the same folder of your 
+workdir `django_app`, the `/start.sh` will look for requirements.txt file, and install all requirements.
 
 In any case, during the building process, the dockerfile will install the content of the `/build_requirements.txt` 
 file, that contains:
@@ -41,11 +43,14 @@ file, that contains:
 - `Django`
 - `gunicorn`
 - `mysqlclient`
-- `Pillow==4.2.1`
-- `reportlab==3.4.0`
 
 These packages will be installed in any case, because they are really common to use in every day scenario usage, and
-because they need gcc and some other libs that are removed after the image building, in order to keep the image very lightweight.
+because they need some libs that are removed after the image building, in order to keep the image very lightweight.
+
+## THE EXTRA.SH
+
+During startup, the `/start.sh` will look into the workdir `django_app` if there is a file called `extra.sh`. If that file 
+exist, the content of the file will be executed, useful for doing some extra installation or extra operations.
 
 
 ## Executing one off commands

@@ -13,9 +13,7 @@ COPY requirements.txt /build_requirements.txt
 
 #Install the mandatory packages and some every-day-use packages.
 #Leaves only mariadb-client-libs needed for mysqlclient.
-RUN apk add --update --no-cache --virtual .build-deps build-base mariadb-dev libxml2-dev libxslt-dev \
- libffi-dev gcc musl-dev libgcc openssl-dev curl jpeg-dev zlib-dev \
- freetype-dev lcms2-dev openjpeg-dev tiff-dev tk-dev tcl-dev \
+RUN apk add --update --no-cache --virtual .build-deps build-base mariadb-dev \
     && pip install -r /build_requirements.txt \
     && apk add --virtual .runtime-deps mariadb-client-libs \
     && apk del .build-deps

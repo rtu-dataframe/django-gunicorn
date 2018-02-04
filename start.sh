@@ -1,10 +1,14 @@
 #!/bin/sh
 
-#Installing requirements
+#Executing some extra commands, if needed.
+echo looking for extra.sh executable file in order to make some extra actions
+/bin/sh extra.sh
+
+#Installing requirements.
 echo Installing user app requirements
 pip install -r requirements.txt
 
-# Run django setup commands if the ENV variable is setup
+#Run django setup commands if the ENV variable is setup.
 if [ "$DJANGO_MIGRATE" == "true" ]; then
     echo Executing Migrations
     python manage.py migrate --noinput
@@ -18,7 +22,7 @@ if [ "$DJANGO_COMPRESS" == "true" ]; then
     python manage.py compress
 fi
 
-# Starting gunicorn
+# Starting gunicorn.
 if [ "$GUNICORN_RELOAD" == "true" ]; then
     echo Executing Gunicorn with --reload attribute
     exec gunicorn ${DJANGO_APP}.wsgi:application --reload --bind 0.0.0.0:80 --workers 4 --log-level info
