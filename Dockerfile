@@ -6,6 +6,8 @@ EXPOSE 80
 
 #Creating application source directory
 RUN mkdir /django_app
+#COPY the fake empty requirements file to django_app folder, used if no requirements.txt file it's given in the app.
+COPY empty_requirements.txt /django_app/requirements.txt
 #Expose the volume: you must give the requirements.txt of your app right now.
 VOLUME /django_app
 
