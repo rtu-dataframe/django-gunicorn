@@ -4,23 +4,19 @@ FROM python:3.5-alpine
 #Expose port
 EXPOSE 80
 
-#Creating application source directory
+#Creating application source directory and expose the volume
 RUN mkdir /django_app
-#COPY the fake empty requirements file to django_app folder, used if no requirements.txt file it's given in the app.
-COPY empty_requirements.txt /django_app/requirements.txt
-#Expose the volume: you must give the requirements.txt of your app right now.
 VOLUME /django_app
 
 #COPY the build requirements file to the root of image, used during the first init.
 COPY requirements.txt /build_requirements.txt
 
-#Install the mandatory packages and all user specified requirements from the requirements.txt file.
-#Leaves only mariadb-client-libs.
+#Install the mandatory packages and some every-day-use packages.
+#Leaves only mariadb-client-libs needed for mysqlclient.
 RUN apk add --update --no-cache --virtual .build-deps build-base mariadb-dev libxml2-dev libxslt-dev \
  libffi-dev gcc musl-dev libgcc openssl-dev curl jpeg-dev zlib-dev \
  freetype-dev lcms2-dev openjpeg-dev tiff-dev tk-dev tcl-dev \
     && pip install -r /build_requirements.txt \
-    && pip install -r /django_app/requirements.txt \
     && apk add --virtual .runtime-deps mariadb-client-libs \
     && apk del .build-deps
 

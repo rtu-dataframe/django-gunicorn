@@ -33,13 +33,20 @@ Starting a new container with the ready-to-production environment it's really si
 ## DJANGO REQUIREMENTS
 This image, becomes with a built-in battery system that manages the pip requirements installation, in fact
 if you want to install some python packages, you have to deploy the requirements.txt file in the same folder of your app,
-the dockerfile will look for requirements.txt file, and, if found, will install all requirements.
+the `/start.sh` will look for requirements.txt file, and install all requirements.
 
-In any case, during the building process, the dockerfile will install first the content of the `/build_requirements.txt` 
+In any case, during the building process, the dockerfile will install the content of the `/build_requirements.txt` 
 file, that contains:
 
 - `Django`
 - `gunicorn`
+- `mysqlclient`
+- `Pillow==4.2.1`
+- `reportlab==3.4.0`
+
+These packages will be installed in any case, because they are really common to use in every day scenario usage, and
+because they need gcc and some other libs that are removed after the image building, in order to keep the image very lightweight.
+
 
 ## Executing one off commands
 

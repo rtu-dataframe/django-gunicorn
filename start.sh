@@ -1,5 +1,8 @@
 #!/bin/sh
 
+#Installing requirements
+echo Installing user app requirements
+pip install -r requirements.txt
 
 # Run django setup commands if the ENV variable is setup
 if [ "$DJANGO_MIGRATE" == "true" ]; then

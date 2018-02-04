@@ -1,2 +1,5 @@
 Django
 gunicorn
+mysqlclient
+Pillow==4.2.1
+reportlab==3.4.0
