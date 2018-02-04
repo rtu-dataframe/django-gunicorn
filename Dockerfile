@@ -6,10 +6,11 @@ EXPOSE 80
 
 #Creating application source directory
 RUN mkdir /django_app
-COPY requirements.txt /build_requirements.txt
-
 #Expose the volume: you must give the requirements.txt of your app right now.
 VOLUME /django_app
+
+#COPY the build requirements file to the root of image, used during the first init.
+COPY requirements.txt /build_requirements.txt
 
 #Install the mandatory packages and all user specified requirements from the requirements.txt file.
 #Leaves only mariadb-client-libs.
