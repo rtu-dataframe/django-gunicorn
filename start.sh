@@ -1,8 +1,15 @@
 #!/bin/sh
 
-#Executing some extra commands, if needed.
+#Executing some extra commands, if file is found.
 echo looking for extra.sh executable file in order to make some extra actions
-/bin/sh extra.sh
+file="extra.sh"
+if [ -f "$file" ]
+then
+	echo "$file found."
+	/bin/sh extra.sh
+else
+	echo "$file not found."
+fi
 
 #Installing requirements.
 echo Installing user app requirements
