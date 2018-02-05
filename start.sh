@@ -32,9 +32,9 @@ fi
 # Starting gunicorn.
 if [ "$GUNICORN_RELOAD" == "true" ]; then
     echo Executing Gunicorn with --reload attribute
-    exec gunicorn ${DJANGO_APP}.wsgi:application --reload --bind 0.0.0.0:80 --workers 4 --log-level info
+    exec gunicorn ${DJANGO_APP}.wsgi:application --reload --bind 0.0.0.0:80 --workers 4 --log-level info  --limit-request-line 0
 else
     echo Executing Gunicorn
-    exec gunicorn ${DJANGO_APP}.wsgi:application --bind 0.0.0.0:80 --workers 4 --log-level info
+    exec gunicorn ${DJANGO_APP}.wsgi:application --bind 0.0.0.0:80 --workers 4 --log-level info --limit-request-line 0
 fi
 
